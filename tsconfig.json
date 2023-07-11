@@ -1,0 +1,17 @@
+{
+    "compilerOptions":
+    {
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+
+        "baseUrl": "./",
+        "rootDir": "src",
+
+        "target": "ESNext",
+        "module": "CommonJS",
+        "outDir": "dist",
+        "declaration": true
+    },
+
+    "include": ["src/**/*"]
+}
