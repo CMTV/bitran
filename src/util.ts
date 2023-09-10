@@ -34,10 +34,10 @@ export function splitToBlocks(str: string)
 
 export function skipFirstLine(str: string)
 {
-    return str.substring(str.indexOf('\n') + 1);
+    let newLineIndex = str.indexOf('\n');
+
+    if (newLineIndex === -1)
+        return '';
+
+    return str.substring(newLineIndex + 1);
 }
-
-// let testStr = fs.readFileSync('test/util/test.txt', 'utf-8');
-//     testStr = removeCarriageReturns(testStr);
-
-// console.log(splitToBlocks(testStr));

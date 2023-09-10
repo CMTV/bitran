@@ -18,10 +18,10 @@ export class FParagraph extends BlockFactory<Paragraph>
         return true;
     }
 
-    parse(str: string)
+    async parse(str: string)
     {
         let paragraph = new Paragraph;
-            paragraph.content = this.parser.parseInliners(str);
+            paragraph.content = await this.parser.parseInliners(str);
         
         return paragraph;
     }
@@ -41,11 +41,29 @@ export class FText extends InlinerFactory<Text>
 {
     regexp = /.+/gm;
 
-    parse(match: RegExpExecArray): Text
+    async parse(match: RegExpExecArray)
     {
         let text = new Text;
             text.content = match[0];
 
         return text;
     }
+}
+
+//
+// Error block and inliner
+//
+
+export class ErrorBlock extends Block
+{
+    type = 'errorBlock';
+    error: any;
+    strBlock: string;
+}
+
+export class ErrorInliner extends Inliner
+{
+    type = 'errorInliner';
+    error: any;
+    strInliner: string;
 }

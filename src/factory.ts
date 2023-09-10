@@ -4,6 +4,7 @@ import BlockMeta from "./BlockMeta";
 import { Parser } from "./parse";
 import { Block, Inliner, Product } from "./product";
 import { skipFirstLine } from "./util";
+import { ErrorInliner } from "./default";
 
 export abstract class Factory<TProduct extends Product>
 {
@@ -14,7 +15,7 @@ export abstract class Factory<TProduct extends Product>
         this.parser = parser;
     }
 
-    abstract parse(...args: any[]): TProduct;
+    abstract parse(...args: any[]): Promise<TProduct>;
 }
 
 //
@@ -24,22 +25,25 @@ export abstract class Factory<TProduct extends Product>
 export abstract class BlockFactory<TBlock extends Block> extends Factory<TBlock>
 {
     abstract canParse(strBlock: string): boolean;
-    abstract parse(strBlock: string, meta: BlockMeta): TBlock;
+    abstract parse(strBlock: string, meta: BlockMeta): Promise<TBlock>;
 }
 
-export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object = {}> extends BlockFactory<TBlock>
+export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object = any> extends BlockFactory<TBlock>
 {
     abstract objType: string;
-    abstract parseObj(obj: TObj, meta: BlockMeta): TBlock;
+    abstract parseObj(obj: TObj, meta: BlockMeta): Promise<TBlock>;
 
     canParse(strBlock: string)
     {
         return strBlock.startsWith('@' + this.objType);
     }
 
-    parse(strBlock: string, meta: BlockMeta)
+    async parse(strBlock: string, meta: BlockMeta)
     {
-        return this.parseObj(YAML.parse(skipFirstLine(strBlock)), meta);
+        let strObject = skipFirstLine(strBlock);
+        let obj = strObject ? YAML.parse(strObject) : {};
+
+        return await this.parseObj(obj, meta);
     }
 }
 
@@ -50,9 +54,9 @@ export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object 
 export abstract class InlinerFactory<TInliner extends Inliner> extends Factory<Inliner>
 {
     abstract regexp: RegExp;
-    abstract parse(match: RegExpExecArray): TInliner;
+    abstract parse(match: RegExpExecArray): Promise<TInliner>;
 
-    splitParse(str: string): (string | TInliner)[]
+    async splitParse(str: string, onInlinerParsed: any = null): Promise<(string | TInliner)[]>
     {
         let results = [];
         let regexp = new RegExp(this.regexp);
@@ -65,7 +69,29 @@ export abstract class InlinerFactory<TInliner extends Inliner> extends Factory<I
             if (strFragment)
                 results.push(strFragment);
 
-            results.push(this.parse(match));
+            let inliner;
+
+            try
+            {
+                inliner = await this.parse(match);
+            }
+            catch (e)
+            {
+                let errorInliner = new ErrorInliner;
+                    errorInliner.error = e;
+                    errorInliner.strInliner = match[0];
+                
+                inliner = errorInliner;
+            }
+
+            if (onInlinerParsed)
+            {
+                let onResult = onInlinerParsed(inliner, this);
+                if (typeof onResult !== 'undefined')
+                    inliner = onResult;
+            }
+
+            results.push(inliner);
 
             lastIndex = match.index + match[0].length;
         }

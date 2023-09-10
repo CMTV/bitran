@@ -1,6 +1,6 @@
 {
     "name": "bitran",
-    "version": "0.0.1",
+    "version": "0.0.6",
     "main": "dist/index.js",
     "scripts": {
         "prepare": "npm run clear && npm run build",
