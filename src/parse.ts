@@ -1,7 +1,7 @@
 import BlockMeta from "./BlockMeta";
-import { ErrorBlock, FParagraph, FText } from "./default";
-import { BlockFactory, InlinerFactory } from "./factory";
-import { Block, Inliner } from "./product";
+import { ErrorBlock, ErrorProduct, FParagraph, FText } from "./default";
+import { BlockFactory, Factory, InlinerFactory } from "./factory";
+import { Block, Inliner, Product } from "./product";
 import { reduceSpaceLines, removeCarriageReturns, removeIndent, skipFirstLine, splitToBlocks } from "./util";
 
 export class Parser
@@ -9,8 +9,9 @@ export class Parser
     blockFactories:     { new (parser: Parser): BlockFactory<Block> }[] = [];
     inlinerFactories:   { new (parser: Parser): InlinerFactory<Inliner> }[] = [];
 
-    onBlockParsed: (block: Block, meta: BlockMeta, factory: BlockFactory<Block>) => Block | void;
-    onInlinerParsed: (inliner: Inliner, factory: InlinerFactory<Inliner>) => Inliner | void;
+    onBlockParsed:      (block: Block, meta: BlockMeta, factory: BlockFactory<Block>) => Block | void;
+    onInlinerParsed:    (inliner: Inliner, factory: InlinerFactory<Inliner>) => Inliner | void;
+    onParseError:       (errorProduct: ErrorProduct, factory: Factory<Product>) => void;
 
     async parseBlocks(str: string): Promise<Block[]>
     {
@@ -26,45 +27,48 @@ export class Parser
 
     async parseBlock(strBlock: string): Promise<Block>
     {
-        try 
-        {
-            let meta = BlockMeta.createFrom(strBlock);
+        let meta = BlockMeta.createFrom(strBlock);
 
-            if (meta)
-                strBlock = skipFirstLine(strBlock);
-    
-            let blockFactories = [...this.blockFactories, FParagraph];
-    
-            for (let i = 0; i < blockFactories.length; i++)
+        if (meta)
+            strBlock = skipFirstLine(strBlock);
+
+        let blockFactories = [...this.blockFactories, FParagraph];
+
+        for (let i = 0; i < blockFactories.length; i++)
+        {
+            let TBlockFactory = blockFactories[i];
+            let blockFactory = new TBlockFactory(this);
+
+            if (blockFactory.canParse(strBlock))
             {
-                let TBlockFactory = blockFactories[i];
-                let blockFactory = new TBlockFactory(this);
-    
-                if (blockFactory.canParse(strBlock))
+                try
                 {
                     let block = await blockFactory.parse(strBlock, meta);
-    
+
                     if (this.onBlockParsed)
                     {
                         let onResult = this.onBlockParsed(block, meta, blockFactory);
                         if (typeof onResult !== 'undefined')
                             block = onResult;
                     }
-    
+
                     return block;
                 }
-            }
+                catch (e)
+                {
+                    let errorBlock = new ErrorBlock;
+                        errorBlock.error = e;
+                        errorBlock.code = strBlock;
     
-            return new FParagraph(this).parse(strBlock);
+                    if (this.onParseError)
+                        this.onParseError(errorBlock, blockFactory);
+        
+                    return errorBlock;
+                }
+            }
         }
-        catch (e)
-        {
-            let errorBlock = new ErrorBlock;
-                errorBlock.error = e;
-                errorBlock.strBlock = strBlock;
 
-            return errorBlock;
-        }
+        return new FParagraph(this).parse(strBlock);
     }
 
     async parseInliners(str: string): Promise<Inliner[]>
@@ -79,7 +83,7 @@ export class Parser
             for (let resultItem of results)
             {
                 if (typeof resultItem === 'string')
-                    newResults.push(...(await inlinerFactory.splitParse(resultItem, this.onInlinerParsed)));
+                    newResults.push(...(await inlinerFactory.splitParse(resultItem, this.onInlinerParsed, this.onParseError)));
                 else
                     newResults.push(resultItem);
             }
