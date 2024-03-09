@@ -1,16 +1,15 @@
 {
     "name": "bitran",
-    "version": "0.0.9",
+    "version": "1.0.0",
+    "type": "module",
     "main": "dist/index.js",
     "scripts": {
-        "prepare": "npm run clear && npm run build",
-        "build": "npm run clear && npx tsc && npx esbuild dist/index.js --bundle --minify --outfile=browser/bitran.js --global-name=bitran",
-        "clear": "npx rimraf dist browser"
+        "prepare": "yarn clear && yarn build",
+        "build": "yarn clear && npx tsc",
+        "clear": "npx rimraf dist"
     },
     "devDependencies": {
-        "esbuild": "^0.18.11",
         "rimraf": "^5.0.1",
-        "ts-node": "^10.9.1",
         "typescript": "^5.1.6"
     },
     "dependencies": {

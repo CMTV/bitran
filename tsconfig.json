@@ -8,7 +8,9 @@
         "rootDir": "src",
 
         "target": "ESNext",
-        "module": "CommonJS",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+
         "outDir": "dist",
         "declaration": true
     },

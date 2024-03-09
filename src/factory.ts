@@ -54,7 +54,7 @@ export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object 
 export abstract class InlinerFactory<TInliner extends Inliner> extends Factory<Inliner>
 {
     abstract regexp: RegExp;
-    abstract parse(match: RegExpExecArray): Promise<TInliner>;
+    abstract parse(match: RegExpExecArray, rawStr: string): Promise<TInliner>;
 
     async splitParse(str: string, onInlinerParsed: any = null, onParseError: any = null): Promise<(string | TInliner)[]>
     {
@@ -73,13 +73,13 @@ export abstract class InlinerFactory<TInliner extends Inliner> extends Factory<I
 
             try
             {
-                inliner = await this.parse(match);
+                inliner = await this.parse(match, match[0]);
             }
             catch (e)
             {
                 let errorInliner = new ErrorInliner;
                     errorInliner.error = e;
-                    errorInliner.code = match[0];
+                    errorInliner.raw = match[0];
                 
                 if (onParseError)
                     onParseError(errorInliner, this);

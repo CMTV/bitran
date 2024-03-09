@@ -58,7 +58,7 @@ export class Parser
                 {
                     let errorBlock = new ErrorBlock;
                         errorBlock.error = e;
-                        errorBlock.code = strBlock;
+                        errorBlock.raw = strBlock;
     
                     if (this.onParseError)
                         this.onParseError(errorBlock, blockFactory);

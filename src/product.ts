@@ -1,7 +1,21 @@
 export abstract class Product
 {
-    abstract type: string;
+    abstract __type: ProductType;
+    abstract __name: string;
 }
 
-export abstract class Block extends Product {}
-export abstract class Inliner extends Product {}
+export enum ProductType
+{
+    Block = 'block',
+    Inliner = 'inliner',
+}
+
+export abstract class Block extends Product
+{
+    __type = ProductType.Block;
+}
+
+export abstract class Inliner extends Product
+{
+    __type = ProductType.Inliner;
+}

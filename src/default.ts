@@ -1,5 +1,5 @@
 import { BlockFactory, InlinerFactory } from "./factory";
-import { Block, Inliner, Product } from "./product";
+import { Block, Inliner, Product, ProductType } from "./product";
 
 //
 // Default block: Paragraph
@@ -7,7 +7,7 @@ import { Block, Inliner, Product } from "./product";
 
 export class Paragraph extends Block
 {
-    type = 'paragraph';
+    __name = 'paragraph';
     content: Inliner[];
 }
 
@@ -33,7 +33,7 @@ export class FParagraph extends BlockFactory<Paragraph>
 
 export class Text extends Inliner
 {
-    type = 'text';
+    __name = 'text';
     content: string;
 }
 
@@ -51,21 +51,22 @@ export class FText extends InlinerFactory<Text>
 }
 
 //
-// Error block and inliner
+// Error
 //
 
 export abstract class ErrorProduct extends Product
 {
-    error: Error;
-    code?: string;
+    __name = 'error';
+    error:  Error;
+    raw:    string;
 }
 
 export class ErrorBlock extends ErrorProduct
 {
-    type = 'errorBlock';
+    __type = ProductType.Block;
 }
 
 export class ErrorInliner extends ErrorProduct
 {
-    type = 'errorInliner';
+    __type = ProductType.Inliner;
 }
