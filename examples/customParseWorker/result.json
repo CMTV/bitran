@@ -1,0 +1,96 @@
+{
+    "products": {
+        "auto:text:1": {
+            "id": "auto:text:1",
+            "name": "text",
+            "data": "Simple paragraph",
+            "type": "inliner"
+        },
+        "auto:paragraph:1": {
+            "id": "auto:paragraph:1",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:1"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:2": {
+            "id": "auto:text:2",
+            "name": "text",
+            "data": "Searchable paragraph",
+            "type": "inliner"
+        },
+        "auto:paragraph:2": {
+            "id": "auto:paragraph:2",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:2"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "search": true
+            }
+        },
+        "auto:text:3": {
+            "id": "auto:text:3",
+            "name": "text",
+            "data": "One more searchable paragraph",
+            "type": "inliner"
+        },
+        "auto:paragraph:3": {
+            "id": "auto:paragraph:3",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:3"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "search": true
+            }
+        },
+        "auto:text:4": {
+            "id": "auto:text:4",
+            "name": "text",
+            "data": "Final paragraph",
+            "type": "inliner"
+        },
+        "paragraph:final": {
+            "id": "paragraph:final",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:4"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "id": "final"
+            }
+        }
+    },
+    "rootBlocks": {
+        "__pids": [
+            "auto:paragraph:1",
+            "auto:paragraph:2",
+            "auto:paragraph:3",
+            "paragraph:final"
+        ]
+    },
+    "pwResults": {
+        "search": [
+            "auto:paragraph:2",
+            "auto:paragraph:3"
+        ],
+        "id": [
+            "paragraph:final"
+        ],
+        "error": []
+    }
+}

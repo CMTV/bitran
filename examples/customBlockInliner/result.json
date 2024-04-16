@@ -1,0 +1,279 @@
+{
+    "products": {
+        "auto:heading:1": {
+            "id": "auto:heading:1",
+            "name": "heading",
+            "data": {
+                "level": 1,
+                "title": "Main heading"
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:1": {
+            "id": "auto:text:1",
+            "name": "text",
+            "data": "simple",
+            "type": "inliner"
+        },
+        "auto:text:2": {
+            "id": "auto:text:2",
+            "name": "text",
+            "data": "This is just a ",
+            "type": "inliner"
+        },
+        "auto:italic:1": {
+            "id": "auto:italic:1",
+            "name": "italic",
+            "data": {
+                "__pids": [
+                    "auto:text:1"
+                ]
+            },
+            "type": "inliner"
+        },
+        "auto:text:3": {
+            "id": "auto:text:3",
+            "name": "text",
+            "data": " paragraph.",
+            "type": "inliner"
+        },
+        "auto:paragraph:1": {
+            "id": "auto:paragraph:1",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:2",
+                    "auto:italic:1",
+                    "auto:text:3"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:heading:2": {
+            "id": "auto:heading:2",
+            "name": "heading",
+            "data": {
+                "level": 2,
+                "title": "Secondary heading"
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:4": {
+            "id": "auto:text:4",
+            "name": "text",
+            "data": "Another paragraph.",
+            "type": "inliner"
+        },
+        "auto:paragraph:2": {
+            "id": "auto:paragraph:2",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:4"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:5": {
+            "id": "auto:text:5",
+            "name": "text",
+            "data": "glory",
+            "type": "inliner"
+        },
+        "auto:text:6": {
+            "id": "auto:text:6",
+            "name": "text",
+            "data": "The greatest ",
+            "type": "inliner"
+        },
+        "auto:italic:2": {
+            "id": "auto:italic:2",
+            "name": "italic",
+            "data": {
+                "__pids": [
+                    "auto:text:5"
+                ]
+            },
+            "type": "inliner"
+        },
+        "auto:text:7": {
+            "id": "auto:text:7",
+            "name": "text",
+            "data": " in living lies not in never falling, but in rising every time we fall.",
+            "type": "inliner"
+        },
+        "auto:paragraph:3": {
+            "id": "auto:paragraph:3",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:6",
+                    "auto:italic:2",
+                    "auto:text:7"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:quote:1": {
+            "id": "auto:quote:1",
+            "name": "quote",
+            "data": {
+                "author": "Nelson Mandela",
+                "content": {
+                    "__pids": [
+                        "auto:paragraph:3"
+                    ]
+                }
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:8": {
+            "id": "auto:text:8",
+            "name": "text",
+            "data": "Now lets try incorrect quote without content:",
+            "type": "inliner"
+        },
+        "auto:paragraph:4": {
+            "id": "auto:paragraph:4",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:8"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:quote:2": {
+            "id": "auto:quote:2",
+            "name": "error",
+            "data": {
+                "name": "quote",
+                "error": "Error: Missing quote content!\n    at <anonymous> (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:37:22)\n    at objFabricateData (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:33:28)\n    at <anonymous> (D:\\projects\\bitran\\src\\factory.ts:24:39)\n    at fabricateData (D:\\projects\\bitran\\src\\factory.ts:22:25)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:110:49)\n    at fabricateBlock (D:\\projects\\bitran\\src\\parser.ts:97:26)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:28:44)"
+            },
+            "str": "@quote\r\n    author: No quote - No author\r",
+            "type": "block",
+            "meta": {}
+        },
+        "auto:heading:3": {
+            "id": "auto:heading:3",
+            "name": "heading",
+            "data": {
+                "level": 3,
+                "title": "Nested quotes test"
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:9": {
+            "id": "auto:text:9",
+            "name": "text",
+            "data": "Let's try to put one quote inside another:",
+            "type": "inliner"
+        },
+        "auto:paragraph:5": {
+            "id": "auto:paragraph:5",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:9"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:10": {
+            "id": "auto:text:10",
+            "name": "text",
+            "data": "Sample paragraph!",
+            "type": "inliner"
+        },
+        "auto:paragraph:6": {
+            "id": "auto:paragraph:6",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:10"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:11": {
+            "id": "auto:text:11",
+            "name": "text",
+            "data": "Here I am!",
+            "type": "inliner"
+        },
+        "auto:paragraph:7": {
+            "id": "auto:paragraph:7",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:11"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "quote:unique-id": {
+            "id": "quote:unique-id",
+            "name": "quote",
+            "data": {
+                "author": "Sub-author",
+                "content": {
+                    "__pids": [
+                        "auto:paragraph:7"
+                    ]
+                }
+            },
+            "type": "block",
+            "meta": {
+                "id": "unique-id"
+            }
+        },
+        "auto:quote:3": {
+            "id": "auto:quote:3",
+            "name": "quote",
+            "data": {
+                "author": "Unknown author",
+                "content": {
+                    "__pids": [
+                        "auto:paragraph:6",
+                        "quote:unique-id"
+                    ]
+                }
+            },
+            "type": "block",
+            "meta": {}
+        }
+    },
+    "rootBlocks": {
+        "__pids": [
+            "auto:heading:1",
+            "auto:paragraph:1",
+            "auto:heading:2",
+            "auto:paragraph:2",
+            "auto:quote:1",
+            "auto:paragraph:4",
+            "auto:quote:2",
+            "auto:heading:3",
+            "auto:paragraph:5",
+            "auto:quote:3"
+        ]
+    },
+    "pwResults": {
+        "id": [
+            "quote:unique-id"
+        ],
+        "error": [
+            "auto:quote:2"
+        ]
+    }
+}

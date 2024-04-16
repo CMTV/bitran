@@ -3,17 +3,18 @@
     {
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-
+        "skipLibCheck": true,
+        "declaration": true,
         "baseUrl": "./",
-        "rootDir": "src",
-
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-
         "outDir": "dist",
-        "declaration": true
+        "emitDeclarationOnly": true,
+        "paths": {
+            "bitran": ["src/index.ts"]
+        }
     },
 
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "test/**/*", "examples/**/*"]
 }

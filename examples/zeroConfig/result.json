@@ -1,0 +1,120 @@
+{
+    "products": {
+        "auto:text:1": {
+            "id": "auto:text:1",
+            "name": "text",
+            "data": "Sample paragraph.",
+            "type": "inliner"
+        },
+        "auto:paragraph:1": {
+            "id": "auto:paragraph:1",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:1"
+                ]
+            },
+            "type": "block",
+            "meta": {}
+        },
+        "auto:text:2": {
+            "id": "auto:text:2",
+            "name": "text",
+            "data": "Sample paragraph with inline meta.",
+            "type": "inliner"
+        },
+        "paragraph:key": {
+            "id": "paragraph:key",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:2"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "id": "key",
+                "toc": false
+            }
+        },
+        "auto:paragraph:3": {
+            "id": "auto:paragraph:3",
+            "name": "error",
+            "data": {
+                "name": "paragraph",
+                "error": "Error: Duplicate unique block id 'paragraph:key'!\n    at preFabricate (D:\\projects\\bitran\\src\\default.ts:52:26)\n    at forEach (:1:11)\n    at stageParseWorkers (D:\\projects\\bitran\\src\\parser.ts:86:133)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:109:31)\n    at fabricateBlock (D:\\projects\\bitran\\src\\parser.ts:97:26)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:28:44)"
+            },
+            "str": "{\r\n    #key\r\n}\r\nSample paragraph with block meta and id duplication.\r",
+            "type": "block",
+            "meta": {
+                "id": "key"
+            }
+        },
+        "auto:text:3": {
+            "id": "auto:text:3",
+            "name": "text",
+            "data": "Meta classes and fast meta properties.",
+            "type": "inliner"
+        },
+        "auto:paragraph:4": {
+            "id": "auto:paragraph:4",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:3"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "classes": [
+                    "fancy",
+                    "float-right"
+                ],
+                "index": true
+            }
+        },
+        "auto:text:4": {
+            "id": "auto:text:4",
+            "name": "text",
+            "data": "Full object meta.",
+            "type": "inliner"
+        },
+        "paragraph:bigMeta": {
+            "id": "paragraph:bigMeta",
+            "name": "paragraph",
+            "data": {
+                "__pids": [
+                    "auto:text:4"
+                ]
+            },
+            "type": "block",
+            "meta": {
+                "id": "bigMeta",
+                "comment": "I don't think this is a very good idea...\nTry something better, please!\n",
+                "refs": [
+                    "ref1",
+                    "ref2",
+                    false
+                ]
+            }
+        }
+    },
+    "rootBlocks": {
+        "__pids": [
+            "auto:paragraph:1",
+            "paragraph:key",
+            "auto:paragraph:3",
+            "auto:paragraph:4",
+            "paragraph:bigMeta"
+        ]
+    },
+    "pwResults": {
+        "id": [
+            "paragraph:key",
+            "paragraph:bigMeta"
+        ],
+        "error": [
+            "auto:paragraph:3"
+        ]
+    }
+}

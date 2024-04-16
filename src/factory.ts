@@ -1,49 +1,45 @@
-import YAML from "yaml";
+import IBlockMeta from "./IBlockMeta";
+import { Parser } from "./parser";
+import { skipFirstLine, strToObj } from "./str";
 
-import BlockMeta from "./BlockMeta";
-import { Parser } from "./parse";
-import { Block, Inliner, Product } from "./product";
-import { skipFirstLine } from "./util";
-import { ErrorInliner } from "./default";
-
-export abstract class Factory<TProduct extends Product>
+export abstract class Factory<TData = any>
 {
     parser: Parser;
 
-    constructor(parser: Parser)
-    {
-        this.parser = parser;
-    }
-
-    abstract parse(...args: any[]): Promise<TProduct>;
+    abstract fabricateData(...args: any[]): Promise<TData>;
 }
 
 //
 // Block Factories
 //
 
-export abstract class BlockFactory<TBlock extends Block> extends Factory<TBlock>
+export abstract class BlockFactory<TData = any> extends Factory<TData>
 {
-    abstract canParse(strBlock: string): boolean;
-    abstract parse(strBlock: string, meta: BlockMeta): Promise<TBlock>;
+    abstract canFabricate(strBlock: string, meta: IBlockMeta): boolean;
+    abstract fabricateData(strBlock: string, meta: IBlockMeta): Promise<TData>;
 }
 
-export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object = any> extends BlockFactory<TBlock>
+export abstract class ObjBlockFactory<TData = any, TObj extends Object = any> extends BlockFactory<TData>
 {
     abstract objType: string;
-    abstract parseObj(obj: TObj, meta: BlockMeta): Promise<TBlock>;
+    abstract objFabricateData(obj: TObj, meta: IBlockMeta): Promise<TData>;
 
-    canParse(strBlock: string)
+    canFabricate(strBlock: string)
     {
-        return strBlock.startsWith('@' + this.objType);
+        let match = strBlock.match(/^@(\S+)$/m);
+
+        if (!match)
+            return false;
+
+        return match[1] === this.objType;
     }
 
-    async parse(strBlock: string, meta: BlockMeta)
+    async fabricateData(strBlock: string, meta: IBlockMeta): Promise<TData>
     {
-        let strObject = skipFirstLine(strBlock);
-        let obj = strObject ? YAML.parse(strObject) : {};
+        const strObj = skipFirstLine(strBlock);
+        const obj = strToObj(strObj);
 
-        return await this.parseObj(obj, meta);
+        return await this.objFabricateData(obj, meta);
     }
 }
 
@@ -51,58 +47,8 @@ export abstract class ObjBlockFactory<TBlock extends Block, TObj extends object 
 // Inliner Factories
 //
 
-export abstract class InlinerFactory<TInliner extends Inliner> extends Factory<Inliner>
+export abstract class InlinerFactory<TData = any> extends Factory<TData>
 {
     abstract regexp: RegExp;
-    abstract parse(match: RegExpExecArray, rawStr: string): Promise<TInliner>;
-
-    async splitParse(str: string, onInlinerParsed: any = null, onParseError: any = null): Promise<(string | TInliner)[]>
-    {
-        let results = [];
-        let regexp = new RegExp(this.regexp);
-
-        let match: RegExpExecArray;
-        let lastIndex = 0;
-        while ((match = regexp.exec(str)) !== null)
-        {
-            let strFragment = str.slice(lastIndex, match.index);
-            if (strFragment)
-                results.push(strFragment);
-
-            let inliner;
-
-            try
-            {
-                inliner = await this.parse(match, match[0]);
-            }
-            catch (e)
-            {
-                let errorInliner = new ErrorInliner;
-                    errorInliner.error = e;
-                    errorInliner.raw = match[0];
-                
-                if (onParseError)
-                    onParseError(errorInliner, this);
-
-                inliner = errorInliner;
-            }
-
-            if (onInlinerParsed)
-            {
-                let onResult = onInlinerParsed(inliner, this);
-                if (typeof onResult !== 'undefined')
-                    inliner = onResult;
-            }
-
-            results.push(inliner);
-
-            lastIndex = match.index + match[0].length;
-        }
-
-        let lastStrFragment = str.slice(lastIndex, str.length);
-        if (lastStrFragment)
-            results.push(lastStrFragment);
-
-        return results;
-    }
+    abstract fabricateData(regexpResult: RegExpExecArray): Promise<TData>;
 }

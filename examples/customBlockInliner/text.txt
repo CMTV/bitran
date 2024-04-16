@@ -1,0 +1,32 @@
+# Main heading
+
+This is just a *simple* paragraph.
+
+## Secondary heading
+
+Another paragraph.
+
+@quote
+    content: |
+        The greatest *glory* in living lies not in never falling, but in rising every time we fall.
+    author: Nelson Mandela
+
+Now lets try incorrect quote without content:
+
+@quote
+    author: No quote - No author
+
+### Nested quotes test
+
+Let's try to put one quote inside another:
+
+@quote
+    content: |
+
+        Sample paragraph!
+
+        { #unique-id }
+        @quote
+            author: Sub-author
+            content: |
+                Here I am!

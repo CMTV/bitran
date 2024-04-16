@@ -1,0 +1,7 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "outFile": "dist/index.js"
+    },
+    "exclude": ["test/**/*", "examples/**/*"]
+}

@@ -1,29 +1,24 @@
+import ParseWorker from "./ParseWorker";
 import { BlockFactory, InlinerFactory } from "./factory";
-import { Block, Inliner, Product, ProductType } from "./product";
+import { Block, Product, ProductIds, ProductType } from "./product";
+import { Mapped } from "./types";
 
 //
 // Default block: Paragraph
 //
 
-export class Paragraph extends Block
-{
-    __name = 'paragraph';
-    content: Inliner[];
-}
+export type Paragraph = ProductIds;
 
 export class FParagraph extends BlockFactory<Paragraph>
 {
-    canParse()
+    canFabricate()
     {
         return true;
     }
 
-    async parse(str: string)
+    async fabricateData(strBlock: string)
     {
-        let paragraph = new Paragraph;
-            paragraph.content = await this.parser.parseInliners(str);
-        
-        return paragraph;
+        return this.parser.parseInliners(strBlock);
     }
 }
 
@@ -31,22 +26,13 @@ export class FParagraph extends BlockFactory<Paragraph>
 // Default inliner: Text
 //
 
-export class Text extends Inliner
+export class FText extends InlinerFactory<string>
 {
-    __name = 'text';
-    content: string;
-}
+    regexp = /[\s\S]+/gm;
 
-export class FText extends InlinerFactory<Text>
-{
-    regexp = /.+/gm;
-
-    async parse(match: RegExpExecArray)
+    async fabricateData(regexpResult: RegExpExecArray)
     {
-        let text = new Text;
-            text.content = match[0];
-
-        return text;
+        return regexpResult[0];
     }
 }
 
@@ -54,19 +40,69 @@ export class FText extends InlinerFactory<Text>
 // Error
 //
 
-export abstract class ErrorProduct extends Product
+export class ErrorData
 {
-    __name = 'error';
-    error:  Error;
-    raw:    string;
+    name:   string;
+    error:  string;
 }
 
-export class ErrorBlock extends ErrorProduct
+//
+// Id Parse Worker
+//
+
+export class PWId extends ParseWorker
 {
-    __type = ProductType.Block;
+    typeCounter: { [type: string]: number } = {};
+    uniques: Mapped<null> = {};
+
+    getNameOrder(name: string)
+    {
+        if (!this.typeCounter[name])
+            this.typeCounter[name] = 0;
+
+        return ++this.typeCounter[name];
+    }
+
+    //
+
+    preFilter()
+    {
+        return true;
+    }
+
+    preFabricate(product: Product)
+    {
+        product.id = 'auto:' + product.name + ':' + this.getNameOrder(product.name);
+
+        if (product.type === ProductType.Block)
+        {
+            let block = product as Block;
+        
+            if (block.meta.id)
+            {
+                let id = block.name + ':' + block.meta.id;
+
+                if (id in this.uniques)
+                    throw new Error(`Duplicate unique block id '${id}'!`);
+
+                block.id = id;
+                this.uniques[id] = null;
+            }
+        }
+    }
+
+    getResult()
+    {
+        return Object.keys(this.uniques);
+    }
 }
 
-export class ErrorInliner extends ErrorProduct
+export class PWError extends ParseWorker
 {
-    __type = ProductType.Inliner;
+    errorIds: string[] = [];
+
+    getResult()
+    {
+        return this.errorIds;
+    }
 }

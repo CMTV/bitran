@@ -1,8 +1,4 @@
-export abstract class Product
-{
-    abstract __type: ProductType;
-    abstract __name: string;
-}
+import IBlockMeta from "./IBlockMeta";
 
 export enum ProductType
 {
@@ -10,12 +6,36 @@ export enum ProductType
     Inliner = 'inliner',
 }
 
-export abstract class Block extends Product
+export abstract class Product<TData = any>
 {
-    __type = ProductType.Block;
+    abstract type:  ProductType;
+    
+    id:     string;
+    name:   string;
+    data:   TData;
+    str:    string;
 }
 
-export abstract class Inliner extends Product
+export class Block<TData = any> extends Product<TData>
 {
-    __type = ProductType.Inliner;
+    type = ProductType.Block;
+
+    meta:   IBlockMeta;
+}
+
+export class Inliner<TData = any> extends Product<TData>
+{
+    type = ProductType.Inliner;
+}
+
+export class ProductIds
+{
+    __pids: string[] = [];
+
+    // Context ?
+
+    static getIds(productIds: ProductIds)
+    {
+        return productIds.__pids;
+    }
 }
