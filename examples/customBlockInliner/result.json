@@ -155,7 +155,7 @@
             "name": "error",
             "data": {
                 "name": "quote",
-                "error": "Error: Missing quote content!\n    at <anonymous> (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:37:22)\n    at objFabricateData (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:33:28)\n    at <anonymous> (D:\\projects\\bitran\\src\\factory.ts:24:39)\n    at fabricateData (D:\\projects\\bitran\\src\\factory.ts:22:25)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:110:49)\n    at fabricateBlock (D:\\projects\\bitran\\src\\parser.ts:97:26)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:28:44)"
+                "error": "Error: Missing quote content!\n    at <anonymous> (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:55:24)\n    at objFabricateData (D:\\projects\\bitran\\examples\\customBlockInliner\\config.ts:33:28)\n    at <anonymous> (D:\\projects\\bitran\\src\\factory.ts:24:39)\n    at fabricateData (D:\\projects\\bitran\\src\\factory.ts:22:25)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:110:49)\n    at fabricateBlock (D:\\projects\\bitran\\src\\parser.ts:97:26)\n    at <anonymous> (D:\\projects\\bitran\\src\\parser.ts:28:44)"
             },
             "str": "@quote\r\n    author: No quote - No author\r",
             "type": "block",

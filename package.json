@@ -1,7 +1,7 @@
 {
     "type": "module",
     "name": "bitran",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "A highly customizable text parser.",
     "keywords": [
         "parser",
@@ -17,11 +17,11 @@
         }
     },
     "scripts": {
-        "test":         "bun test",
-        "prepublish":   "bun run examples && bun run build",
-        "examples":     "bun examples/index.ts",
-        "clean":        "bun x rimraf dist",
-        "build":        "bun run clean && bun tsup src/index.ts --dts --format esm --minify"
+        "test":     "bun test",
+        "prepare":  "bun run examples && bun run build",
+        "examples": "bun examples/index.ts",
+        "clean":    "bun x rimraf dist",
+        "build":    "bun run clean && bun tsup src/index.ts --dts --format esm --minify"
     },
     "dependencies": {
         "yaml": "^2.4.1"
