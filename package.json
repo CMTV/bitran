@@ -1,7 +1,15 @@
 {
+    "type": "module",
     "name": "bitran",
     "version": "2.0.0",
-    "type": "module",
+    "description": "A highly customizable text parser.",
+    "keywords": [
+        "parser",
+        "parse",
+        "text"
+    ],
+    "license": "MIT",
+    "repository": "CMTV/bitran",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
