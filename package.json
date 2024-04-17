@@ -1,35 +1,35 @@
 {
-    "type": "module",
-    "name": "bitran",
-    "version": "2.0.3",
-    "description": "A highly customizable text parser.",
-    "keywords": [
-        "parser",
-        "parse",
-        "text"
-    ],
-    "license": "MIT",
-    "repository": "CMTV/bitran",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js"
-        }
-    },
-    "scripts": {
-        "test":     "bun test",
-        "prepare":  "bun run examples && bun run build",
-        "examples": "bun examples/index.ts",
-        "clean":    "bun x rimraf dist",
-        "build":    "bun run clean && bun tsup src/index.ts --dts --format esm --minify"
-    },
-    "dependencies": {
-        "yaml": "^2.4.1"
-    },
-    "devDependencies": {
-        "@types/jest": "^29.5.12",
-        "bun": "^1.1.3",
-        "tsup": "^8.0.2",
-        "typescript": "^5.4.3"
+  "type": "module",
+  "name": "bitran",
+  "version": "2.0.4",
+  "description": "A highly customizable text parser.",
+  "keywords": [
+    "parser",
+    "parse",
+    "text"
+  ],
+  "license": "MIT",
+  "repository": "CMTV/bitran",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
+  },
+  "scripts": {
+    "test": "bun test",
+    "prepare": "bun run build",
+    "examples": "bun examples/index.ts",
+    "clean": "bun x rimraf dist",
+    "build": "bun run examples && bun run clean && bun build src/index.ts --outdir ./dist --external yaml --minify && bun dts-bundle-generator -o dist/index.d.ts src/index.ts"
+  },
+  "dependencies": {
+    "yaml": "^2.4.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "bun": "^1.1.3",
+    "dts-bundle-generator": "^9.4.0",
+    "typescript": "^5.4.3"
+  }
 }

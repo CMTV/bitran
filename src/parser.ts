@@ -8,12 +8,12 @@ import { Factory } from "./factory";
 
 export class Parser<TConfigLike extends ConfigLike = ConfigLike>
 {
-    private config: ReturnType<typeof finalizeConfig<TConfigLike>>;
+    config: ReturnType<typeof finalizeConfig<TConfigLike>>;
 
     //
 
     private workers: Mapped<ParseWorker>;
-    private parseResult: ParseResult<typeof this.config.parseWorkers>;
+    parseResult: ParseResult<this['config']['parseWorkers']>;
 
     //
 
@@ -24,7 +24,7 @@ export class Parser<TConfigLike extends ConfigLike = ConfigLike>
 
     //
 
-    async parse(text: string): Promise<typeof this.parseResult>
+    async parse(text: string): Promise<this['parseResult']>
     {
         this.parseResult = new ParseResult;
 
