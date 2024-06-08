@@ -14,10 +14,12 @@ jobs:
 
             -   name: Setup up Node.js 
                 uses: actions/setup-node@main
+            
+            -   name: Setup bun
+                uses: oven-sh/setup-bun@v1
 
             -   name: Install and Build 🔧
                 run: |
-                    npm i bun
                     bun install
                     cd apps/parser-playground
                     bun run build
