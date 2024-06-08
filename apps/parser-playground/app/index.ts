@@ -11,7 +11,7 @@ import './style/index.scss';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: App }
+        { path: import.meta.env.BASE_URL, component: App }
     ]
 });
 
