@@ -90,7 +90,7 @@ function replaceImports(configStr: string)
     return configStr.replace(/(import\s+(?:{[^{}]+}|.*?)\s*(?:from)?)\s*['"](.*?)['"]|import\(.*?\)/g, (match, begin, target) =>
     {
         if (target === 'bitran-parser')
-            target = location.origin + (import.meta.env.MODE === 'development' ? '/@id/local-bitran-parser' : '/parser.js');
+            target = location.origin + import.meta.env.BASE_URL + (import.meta.env.MODE === 'development' ? '@id/local-bitran-parser' : 'parser.js');
 
         return begin + ' ' + `"${target}"`;
     })
