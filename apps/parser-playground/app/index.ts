@@ -20,7 +20,12 @@ router.beforeEach(async (to, from, next) => {
     const reroute = await pageStore.setupPageStore(to);
 
     if (reroute)
-        router.push(reroute);
+    {
+        router.push({
+            path: import.meta.env.BASE_URL,
+            query: (<any>reroute)?.query ?? null
+        });
+    }
 
     next();
 });
