@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+
+        "noEmit": true,
+        "skipLibCheck": true,
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "Bundler",
+
+        "forceConsistentCasingInFileNames": true,
+
+        "paths": {
+            "bitran-parser": ["./packages/parser/src/index.ts"]
+        }
+    }
+}

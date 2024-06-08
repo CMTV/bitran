@@ -1,0 +1,10 @@
+@forward './vars';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__app
+{
+    height: 100dvh;
+}

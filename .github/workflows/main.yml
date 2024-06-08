@@ -1,0 +1,29 @@
+name: Build and Deploy
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout 🛎️
+                uses: actions/checkout@v4
+
+            -   name: Setup up Node.js 
+                uses: actions/setup-node@main
+
+            -   name: Install and Build 🔧
+                run: |
+                    npm i bun
+                    bun install
+                    cd apps/parser-playground
+                    bun run build
+
+            -   name: Deploy 🚀
+                uses: JamesIves/github-pages-deploy-action@v4
+                with:
+                    branch: gh-pages
+                    folder: dist

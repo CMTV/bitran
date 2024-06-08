@@ -1,0 +1,13 @@
+{
+    "name": "parser-playground",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "bun vite dev",
+        "build": "bun vite build --emptyOutDir",
+        "preview": "bun vite preview"
+    },
+    "dependencies": {
+        "bitran-parser": "workspace:*"
+    }
+}
