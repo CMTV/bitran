@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "bun vite dev",
         "build": "bun vite build --emptyOutDir",
+        "prod": "bun vite build --emptyOutDir --base=/parser/",
         "preview": "bun vite preview"
     },
     "dependencies": {

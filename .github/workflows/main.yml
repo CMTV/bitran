@@ -25,7 +25,7 @@ jobs:
                     bun run build
                     cd ../..
                     cd apps/parser-playground
-                    bun run build
+                    bun run prod
 
             -   name: Deploy 🚀
                 uses: JamesIves/github-pages-deploy-action@v4
