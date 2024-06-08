@@ -154,11 +154,8 @@ Paragraph with combination of YAML-structured block and inline meta.
 ```
 </details>
 
-## In-depth examples
+## Playground and examples
 
-Detailed examples with configs, input texts and parse results can be found inside [`examples`](./examples/) folder:
+Better to see something once than to hear about it a thousand times.
 
-* [Zero config](./examples/zeroConfig/)
-* [Custom blocks and inliners](./examples/customBlockInliner/)
-* [Custom parse worker](./examples/customParseWorker/)
-* [Context usage](./examples/contextUsage/)
+So, try out Bitran Parser and its usage examples [right in your browser!](https://cmtv.github.io/bitran/parser/)

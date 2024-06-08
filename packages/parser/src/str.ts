@@ -124,15 +124,16 @@ export function parseInlineMeta(strInlineMeta: string): ProductMeta
 
 export function parseBlockMeta(strBlockMeta: string): ProductMeta
 {
-    const strParts = splitByFirstLine(strBlockMeta.trim())
+    strBlockMeta = strBlockMeta.trim();
 
-    if (/^(\s*[#.+-]\S*\s*)+$/.test(strParts.first))
+    if (strBlockMeta.includes('\n'))
     {
+        const parts = splitByFirstLine(strBlockMeta);
+
         return {
-            ...parseInlineMeta(strParts.first),
-            ...strToObj(strParts.rest),
+            ...parseInlineMeta(parts.first),
+            ...strToObj(parts.rest),
         }
     }
-
-    return strToObj(strBlockMeta);
+    else return parseInlineMeta(strBlockMeta);
 }

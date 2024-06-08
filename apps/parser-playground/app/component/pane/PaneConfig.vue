@@ -26,7 +26,7 @@ state.$onAction(action => {
 function onUserInput()
 {
     if (page.mode === 'example' && !page.edited)
-        router.push({ query: {...router.currentRoute.value.query, ...{ edited: null }} })
+        router.push({ query: {...router.currentRoute.value.query, ...{ edited: null }} });
 
     state.changeState(ChangeSrc.User, { config: configDoc.value });
 }
