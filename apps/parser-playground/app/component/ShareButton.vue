@@ -34,7 +34,7 @@ let revertStateTimeout;
 function share()
 {
     const compressed = compressToEncodedURIComponent(JSON.stringify({ config: state.config, content: state.content }));
-    const link = location.host + '?code=' + compressed;
+    const link = location.origin + import.meta.env.BASE_URL + '?code=' + compressed;
     navigator.clipboard.writeText(link);
 
     currentState.value = copiedState;
