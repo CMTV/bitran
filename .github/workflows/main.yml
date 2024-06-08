@@ -21,6 +21,9 @@ jobs:
             -   name: Install and Build 🔧
                 run: |
                     bun install
+                    cd packages/parser
+                    bun run build
+                    cd ../..
                     cd apps/parser-playground
                     bun run build
 
@@ -29,3 +32,4 @@ jobs:
                 with:
                     branch: gh-pages
                     folder: dist
+                    target-folder: parser
