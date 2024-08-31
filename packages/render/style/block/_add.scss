@@ -1,0 +1,39 @@
+@use '$public/def';
+@use '$public/block';
+
+#{_(blockAdd)}
+{
+    $size: 18px;
+
+    width: $size;
+    height: $size;
+
+    margin-left: block.$asideGap + 1;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    opacity: 0;
+    background: transparent;
+
+    transition-property: background, opacity;
+    transition-duration: def.$duration;
+
+    &:hover
+    {
+        opacity: 1 !important;
+        background: #e3e3e3;
+        @include def.themeDark { background: #363636; }
+    }
+
+    > #{_(icon)}
+    {
+        width: 100%;
+        color: #737373;
+    }
+}
+
+#{_(block)}:hover > #{_(blockAligned)} > #{_(blockFloat)} #{_(blockAdd)}
+{
+    opacity: .65;
+}

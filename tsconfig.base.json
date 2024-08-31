@@ -12,7 +12,11 @@
         "forceConsistentCasingInFileNames": true,
 
         "paths": {
-            "bitran-parser": ["./packages/parser/src/index.ts"]
+            "bitran-dom":           ["./packages/dom/src/index.ts"],
+            "bitran-use":           ["./packages/use/src/index.ts"],
+            "bitran-default":       ["./packages/default/src/index.ts"],
+            "bitran-render":        ["./packages/render/src/index.ts"],
+            "bitran-playground":    ["./packages/playground/src/index.ts"],
         }
     }
 }

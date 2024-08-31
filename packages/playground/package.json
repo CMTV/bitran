@@ -1,5 +1,30 @@
 {
     "name": "bitran-playground",
-    "version": "0.0.0",
-    "type": "module"
+    "version": "1.0.0",
+    "type": "module",
+    "bin": {
+        "playground": "dist/cli.js"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "bun vite build",
+        "dev": "bun vite build --watch"
+    },
+    "dependencies": {
+        "bitran-use": "workspace:*",
+        "bitran-render": "workspace:*",
+        "bitran-default": "workspace:*",
+        "chalk": "^5.3.0",
+        "yaml": "^2.5.0"
+    }
 }

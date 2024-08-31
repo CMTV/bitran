@@ -1,0 +1,10 @@
+{
+  "name": "example-playground",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "bitran-playground": "workspace:*",
+    "@types/katex": "^0.16.7",
+    "katex": "^0.16.10"
+  }
+}

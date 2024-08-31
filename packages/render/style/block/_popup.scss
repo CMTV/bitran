@@ -1,0 +1,67 @@
+@use '$public/def';
+
+#{_(popup)}
+{
+    --bg: white;
+    --borderColor: #eaeaea;
+    --hoverColor: #eeeeee;
+
+    @include def.themeDark
+    {
+        --bg: #1f1f1f;
+        --borderColor: #3c3c3c;
+        --hoverColor: #2d2d2d;
+    }
+}
+
+#{_(popup)}
+{
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+    background: var(--bg);
+}
+
+//
+// Aside Popup
+//
+
+#{_(popup)}#{_(asidePopup)}
+{
+    position: relative;
+    z-index: 12;
+
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+
+    #{_(popupItem)}
+    {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 15px;
+        width: 100%;
+
+        transition: background def.$duration;
+
+        &:hover
+        {
+            background: var(--hoverColor);
+        }
+
+        > #{_(icon)}
+        {
+            flex-shrink: 0;
+            width: 16px;
+            fill: currentColor;
+        }
+
+        > #{_(label)}
+        {
+            font-size: 15px;
+            flex: 1;
+            text-align: left;
+        }
+    }
+}

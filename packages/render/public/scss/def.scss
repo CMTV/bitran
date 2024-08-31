@@ -1,0 +1,9 @@
+$duration: 200ms;
+
+@mixin themeDark
+{
+    :root[data-theme="dark"] &
+    {
+        @content;
+    }
+}

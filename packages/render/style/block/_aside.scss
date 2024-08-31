@@ -1,0 +1,83 @@
+@use '$public/def';
+@use '$public/block';
+
+#{_(blockAside)}
+{
+    --asideWidth: #{block.$asideWidth};
+    --asideGap: #{block.$asideGap};
+    --asideBorderRadius: 5px;
+
+    --asideBg: transparent;
+    --asideIconColor: var(--default_icon);
+
+    --default_bg: #e3e3e3;
+    --default_icon: #737373;
+
+    --error_bg: #fcb7b7;
+    --error_icon: #733131;
+
+    @include def.themeDark
+    {
+        --default_bg: #363636;
+
+        --error_bg: #753333;
+        --error_icon: #c58585;
+    }
+}
+
+#{_(blockAside)}
+{
+    user-select: none;
+
+    width: var(--asideWidth);
+    margin-left: var(--asideGap);
+    padding: 0 2px;
+
+    border-top-left-radius: var(--asideBorderRadius);
+    border-bottom-left-radius: var(--asideBorderRadius);
+
+    opacity: 0;
+    background: var(--asideBg);
+
+    cursor: pointer;
+
+    transition-property: opacity, background;
+    transition-duration: def.$duration;
+
+    > #{_(icon)}
+    {
+        position: sticky;
+        top: 0px;
+        width: 100%;
+        padding: 5px 0;
+        color: var(--asideIconColor);
+        pointer-events: none;
+    }
+
+    //
+    // Default
+    //
+
+    #{_(block)}:hover > #{_(blockAligned)} > #{_(blockInner)}#{_(-default)} > &
+    {
+        opacity: .65;
+        --asideIconColor: var(--default_icon);
+
+        &:hover
+        {
+            opacity: 1;
+            --asideBg: var(--default_bg);
+        }
+    }
+
+    //
+    // Error
+    //
+
+    #{_(blockInner)}#{_(-error)} > &
+    {
+        opacity: 1;
+        --asideBg: var(--error_bg);
+        --asideIconColor: var(--error_icon)
+    }
+}

@@ -1,0 +1,13 @@
+@use './reset';
+
+#{_(icon)}
+{
+    width: 18px;
+    fill: currentColor;
+}
+
+html#{_(-dragging)}
+{
+    cursor: grabbing !important;
+    * { cursor: inherit !important; }
+}

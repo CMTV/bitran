@@ -1,0 +1,103 @@
+@use '$public/def';
+@use '$public/block';
+
+@use './float';
+@use './aside';
+@use './popup';
+@use './add';
+
+#{_(block)}
+{
+    //
+    // Vars
+    //
+
+    --blockGap: 20px;
+
+    //
+    //
+    //
+
+    position: relative;
+    padding-bottom: var(--blockGap);
+    //outline: 1px solid red;
+
+    &:hover
+    {
+        z-index: 10;
+    }
+
+    &#{_(-dragTarget)}
+    {
+        z-index: 11;
+    }
+
+    &:first-of-type
+    {
+        padding-top: var(--blockGap);
+    }
+}
+
+#{_(blockAligned)}
+{
+    position: relative;
+    //outline: 1px solid green;
+
+    // Show proper drag target when dragging
+
+    &#{_(-dragAbove)} > #{_(-above)} #{_(blockDragTarget)} { opacity: 1; }
+    &#{_(-dragBelow)} > #{_(-below)} #{_(blockDragTarget)} { opacity: 1; }
+}
+
+#{_(blockInner)}#{_(-default)},
+#{_(blockInner)}#{_(-error)}
+{
+    display: flex;
+    flex-wrap: nowrap;
+
+    > #{_(blockAside)}
+    {
+        flex-shrink: 0;
+    }
+
+    > #{_(blockContent)}
+    {
+        flex: 1;
+        padding-left: block.$asideGap;
+
+        background: transparent;
+        transition: background def.$duration;
+
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+#{_(blockInner)}#{_(-error)}
+{
+    > #{_(blockAside)}
+    {
+        > #{_(icon)}
+        {
+            padding: 10px 0;
+        }
+    }
+    
+    > #{_(blockContent)}
+    {
+        background: #fcd6d6;
+        color: #733131;
+        padding: 5px;
+
+        @include def.themeDark
+        {
+            background: #452727;
+            color: #c58585;
+        }
+
+        #{_(blockErrorTitle)}
+        {
+            font-weight: bold;
+        }
+    }
+}

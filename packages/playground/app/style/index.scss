@@ -1,0 +1,40 @@
+@forward './vars';
+
+@use './_global';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root
+{
+    color: var(--textColor);
+}
+
+html, body, #__app
+{
+    height: 100dvh;
+}
+
+@layer components
+{
+    .__menuItem
+    {
+        @apply flex items-center gap-2 px-3 min-h-[40px] ;
+    
+        &:hover
+        {
+            @apply bg-neutral-300/50 dark:bg-neutral-900/50;
+        }
+    
+        &.__menuItem_Active
+        {
+            @apply bg-neutral-300 dark:bg-neutral-900 text-[var(--textColor)] font-semibold;
+        }
+    }
+}
+
+.scroll
+{
+    @include global.injectScroll;
+}

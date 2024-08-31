@@ -1,0 +1,39 @@
+{
+    "name": "bitran-dom",
+    "version": "1.0.0",
+    "description": "A handy toolkit for working with Bitran documents: parse, search and modify DOM tree, stringify.",
+    "keywords": [
+        "dom",
+        "parser",
+        "parse",
+        "stringifier",
+        "stringify",
+        "tree",
+        "node"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CMTV/bitran/tree/main/packages/dom"
+    },
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "bun vite build",
+        "dev": "bun vite build --watch",
+        "test": "bun test"
+    },
+    "dependencies": {
+        "yaml": "^2.5.0"
+    }
+}

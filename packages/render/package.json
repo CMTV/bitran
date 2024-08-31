@@ -1,0 +1,30 @@
+{
+    "name": "bitran-render",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./style.css": "./dist/style.css",
+        "./scss/*": "./dist/scss/*.scss"
+    },
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "bun vite build",
+        "dev": "bun vite build --watch"
+    },
+    "dependencies": {
+        "bitran-dom": "workspace:*",
+        "bitran-use": "workspace:*",
+        "@floating-ui/vue": "^1.1.4"
+    },
+    "peerDependencies": {
+        "vue": "^3.0.0"
+    }
+}

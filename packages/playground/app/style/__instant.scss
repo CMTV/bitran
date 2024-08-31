@@ -1,0 +1,74 @@
+@mixin darkTheme
+{
+    :root[data-theme="dark"] &
+    {
+        @content;
+    }
+}
+
+@mixin hidden
+{
+    opacity: 0;
+    pointer-events: none;
+    touch-action: none;
+}
+
+body
+{
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(110 110 110 / 0.075)" viewBox="0 0 32 32"><path d="M0 .5h31.5V32"/></svg>');
+    background-color: #e5e5e5;
+    background-size: 30px;
+
+    @include darkTheme
+    {
+        background-color: #171717;
+    }
+}
+
+#__loading
+{
+    --size: 160px;
+
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--size);
+    height: var(--size);
+    opacity: 1;
+
+    body.__appLoaded & { @include hidden; }
+
+    > svg
+    {
+        fill: #a3a3a3;
+        animation: spin 1s linear infinite;
+
+        @include darkTheme
+        {
+            fill: #525252;
+        }
+    }
+}
+
+#__app
+{
+    position: relative;
+    z-index: 1;
+
+    body:not(.__appLoaded) & { @include hidden; }
+    body.__appLoaded & { opacity: 1; }
+}
+
+#__app,
+#__loading
+{
+    transition: opacity 200ms;
+}
+
+@keyframes spin
+{
+    from    { rotate: 0deg; }
+    to      { rotate: 360deg; }
+}
