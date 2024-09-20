@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { assumeGroupItem, Editor } from 'bitran-dom';
-import { useEditMode, useNode } from '@src/composable';
 import { RenderProps } from '@src/render/RenderProps';
 import { useAreaState } from '@src/area/state';
 import { useDomUpdate } from '@src/composable/domUpdate';
+import { useEditMode } from '@src/composable/edit';
+import { useNode } from '@src/composable/node';
 
 import AsideItem from './aside/AsideItem.vue';
 
@@ -12,7 +13,6 @@ import cloneIcon from './aside/clone.svg?raw';
 import removeIcon from './aside/remove.svg?raw';
 
 import linkIcon from './aside/link.svg?raw';
-
 
 const props = defineProps<RenderProps>();
 
@@ -35,23 +35,23 @@ function closePopup()
 function edit()
 {
     const editor = new Editor;
-    editor.src = areaState.stringifier.stringify(node.value).trim();
-    assumeGroupItem(node.value).replace(editor);
+    editor.src = areaState.stringifier.stringify(node).trim();
+    assumeGroupItem(node).replace(editor);
     domUpdate();
 }
 
 async function clone()
 {
-    const strNode = areaState.stringifier.stringify(node.value);
+    const strNode = areaState.stringifier.stringify(node);
     const newNodes = await areaState.parser.parseBlocks(strNode);
-    assumeGroupItem(node.value).after(...newNodes);
+    assumeGroupItem(node).after(...newNodes);
     domUpdate();
     closePopup();
 }
 
 function remove()
 {
-    assumeGroupItem(node.value).detach();
+    assumeGroupItem(node).detach();
     domUpdate();
 }
 </script>

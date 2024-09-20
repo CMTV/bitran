@@ -27,12 +27,12 @@ describe('Low level oprations', () => {
             expect(group.children[2]).toBe(foo3);
             expect(group.children[2].parent).toBe(group);
         });
-    
+
         test('__locate', () => {
             expect(group.__locate(foo2)).toEqual(0);
             expect(() => group.__locate(new FooNode)).toThrow();
         });
-    
+
         test('__swap', () => {
             group.__swap(0, 2);
             expect(group.children).toEqual([foo3, foo1, foo2]);

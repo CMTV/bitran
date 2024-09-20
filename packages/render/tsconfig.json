@@ -7,5 +7,5 @@
             "@style/*": ["./style/*"],
         }
     },
-    "include": ["src/**/*", "style/**/*"]
+    "include": ["src/**/*", "style/**/*", "language/**/*"]
 }

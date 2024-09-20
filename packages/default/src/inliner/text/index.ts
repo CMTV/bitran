@@ -1,4 +1,4 @@
-import { bitranDefinition, defineRenderer } from 'bitran-use';
+import { bitranDefinition, defineLanguages, defineRenderer } from 'bitran-use';
 import { Text } from 'bitran-dom';
 
 import icon from './icon.svg?raw';
@@ -13,7 +13,7 @@ export default bitranDefinition({
         icon,
     }),
 
-    phraseLoader: {
-        en: async () => (await import('./language/en')).default,
-    }
+    i18n: defineLanguages({
+        en: () => import('./language/en'),
+    }),
 });

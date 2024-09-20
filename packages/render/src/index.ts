@@ -16,9 +16,9 @@ export {
     useAreaState,
 } from '@src/area/state';
 
-export {
-    usePhrases,
-} from '@src/composable';
+//
+// Composable
+//
 
 export {
     useNode,
@@ -26,11 +26,14 @@ export {
 } from '@src/composable/node';
 
 export {
-    useDefinition
+    useDefinition,
 } from '@src/composable/definition';
 
-//
-// Composable
-//
+export {
+    useLanguage,
+    useRendererLanguage,
+} from '@src/composable/language';
 
-export { useDomUpdate } from '@src/composable/domUpdate';
+export {
+    useDomUpdate,
+} from '@src/composable/domUpdate';

@@ -26,6 +26,7 @@ export function defineRenderer(options: Renderer): Renderer
         ...options,
         ...{
             Component: defineAsyncComponent(options.Component),
+            blockClass: options.blockClass || '',
         }
     }
 }

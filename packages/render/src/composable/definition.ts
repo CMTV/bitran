@@ -1,4 +1,4 @@
-import { computed, Ref } from "vue";
+import { computed } from "vue";
 import { Node } from "bitran-dom";
 import { useAreaState } from "@src/area/state";
 import { useNodeName } from "./node";

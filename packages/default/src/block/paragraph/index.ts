@@ -1,4 +1,4 @@
-import { bitranDefinition, defineRenderer } from "bitran-use";
+import { bitranDefinition, defineLanguages, defineRenderer } from "bitran-use";
 import { Paragraph } from "bitran-dom";
 
 import icon from './icon.svg?raw';
@@ -13,8 +13,8 @@ export default bitranDefinition({
         Component: () => import('./component.vue'),
     }),
 
-    phraseLoader: {
-        en: async () => (await import('./language/en')).default,
-        ru: async () => (await import('./language/ru')).default,
-    }
+    i18n: defineLanguages({
+        en: () => import('./language/en'),
+        ru: () => import('./language/ru'),
+    }),
 });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Paragraph } from 'bitran-dom';
-import { Render, RenderProps, useNode } from 'bitran-render';
+import { Render, RenderProps, useLanguage, useNode } from 'bitran-render';
 
 const props = defineProps<RenderProps<Paragraph>>();
 const node = useNode(props);

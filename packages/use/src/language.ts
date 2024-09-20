@@ -44,3 +44,10 @@ export function usePhrases(phrases: Phrases)
         return phrase(...args);
     }
 }
+
+export function defineLanguages(languages: { [language: string]: () => Promise<any> })
+{
+    return Object.fromEntries(
+        Object.entries(languages).map(([language, loader]) => [language, () => loader().then((phrases) => phrases.default)]),
+    );
+}

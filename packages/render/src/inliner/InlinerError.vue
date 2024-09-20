@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { Node } from 'bitran-dom';
 import { ErrorData, ErrorStage } from '@src/error';
-import { useDefinition, useNodeName } from '@src/composable';
+import { useNode, useNodeName } from '@src/composable/node';
+import { useDefinition } from '@src/composable/definition';
 
 const props = defineProps<{
     node: Node;
     errorData: ErrorData;
 }>();
 
-const nodeName = useNodeName(props);
-const definition = useDefinition(props);
+const node = useNode(props);
+const nodeName = useNodeName(node);
+const definition = useDefinition(node);
 </script>
 
 <template>

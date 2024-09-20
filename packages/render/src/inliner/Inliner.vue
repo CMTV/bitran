@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Inliner } from 'bitran-dom';
-import { useDefinition } from '@src/composable';
 import { RenderProps } from '@src/render/RenderProps';
+import { useNode } from '@src/composable/node';
+import { useDefinition } from '@src/composable/definition';
 
 const props = defineProps<RenderProps<Inliner>>();
-
-const definition = useDefinition(props);
+const node = useNode(props);
+const definition = useDefinition(node);
 const InlinerComponent = definition.value.renderer.Component;
 
 //await new Promise(resolve => setTimeout(resolve, 1000));
